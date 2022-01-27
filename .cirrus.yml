@@ -3,6 +3,8 @@ env:
     rcloneconfig: "ENCRYPTED[81f2ea42a1bb72f5514f01604e25bb9057eb0b6f1b0f5a18434dd7175df07619a880e75ecb9597e10e69fba44553fe84]"
     tokentl: "ENCRYPTED[635e0f6a0eba8b826946060570abec570da283211dd3be25ba50ff895855fd6f35aa1181acdbbb20ec3331f16cde6bbd]"
     idtl: "ENCRYPTED[34e83ce99a26a43722c25a9237e72beb606357204ef3029e5fe641f449ebd90db2ae3b7a2676bf686c62ffa9606f48db]"
+    lunch: lunch nad_juice-userdebug
+    make: make nad
 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
