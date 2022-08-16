@@ -46,10 +46,10 @@ task:
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       # DT/VT/KT/TC
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/device_xiaomi_juice_Q -b bootleg device/xiaomi/juice
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/vendor-xiaomi-juice_Q --single-branch -b 10.staging vendor/xiaomi/juice
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/DarkLegacy_kernel_citrus --single-branch -b protest kernel/xiaomi/juice
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/proton-clang --single-branch -b master prebuilts/clang/host/linux-x86/clang-proton
+      - git clone --depth=1 https://github.com/darknius20/device_xiaomi_juice_Q -b bootleg device/xiaomi/juice
+      - git clone --depth=1 https://github.com/darknius20/vendor-xiaomi-juice_Q --single-branch -b 10.staging vendor/xiaomi/juice
+      - git clone --depth=1 https://github.com/darknius20/DarkLegacy_kernel_citrus --single-branch -b protest kernel/xiaomi/juice
+      - git clone --depth=1 https://github.com/darknius20/proton-clang--single-branch -b master prebuilts/clang/host/linux-x86/clang-proton
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
       - echo "============================"
