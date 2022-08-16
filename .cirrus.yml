@@ -45,8 +45,6 @@ task:
       - rm -rf * .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
-      # DT/VT/KT/TC
-      - ./clone.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
       - echo "============================"
@@ -57,6 +55,7 @@ task:
       - echo "============================"
       - echo "Starting the Build..."
       - echo "============================"
+      - ./clone.sh
       - ./collect.sh
 #      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~//rom/out/target/product/juice/ && ls Nusantara*.zip) Completed!"
