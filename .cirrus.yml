@@ -44,7 +44,6 @@ task:
       - cd /tmp/rom
       - rm -rf * .repo
       - rm -rf ~/rom/* .repo
-      - rm -rf ~/* .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       # DT/VT/KT/TC
