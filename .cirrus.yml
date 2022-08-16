@@ -1,10 +1,10 @@
 env:
-    credentials: "ENCRYPTED[4526be3acf95a0d69e63c2024f61eacc9becd1b166eb4c671a0f62030a7927284dab21b9a07ba52c425948ff430e8727]"
-    rcloneconfig: "ENCRYPTED[81f2ea42a1bb72f5514f01604e25bb9057eb0b6f1b0f5a18434dd7175df07619a880e75ecb9597e10e69fba44553fe84]"
-    tokentl: "ENCRYPTED[635e0f6a0eba8b826946060570abec570da283211dd3be25ba50ff895855fd6f35aa1181acdbbb20ec3331f16cde6bbd]"
-    idtl: "ENCRYPTED[34e83ce99a26a43722c25a9237e72beb606357204ef3029e5fe641f449ebd90db2ae3b7a2676bf686c62ffa9606f48db]"
-    lunch: lunch nad_juice-userdebug
-    make: make nad
+    credentials: "ENCRYPTED[!efab3ed4529d2ffe013709890c8be3abf5839a337f965dc607d8c43bb57a39e7d52ff756687bc92c198f87199c03abc1!]"
+    rcloneconfig: "ENCRYPTED[!de9a884ad227a93ee08eb71e4492fb073234531abe6999b0e234f22be251fa381b2c090dc28399c8904a38aa4fde9412!]"
+    tokentl: "ENCRYPTED[!794f286e43a45e476ba1bd2c0ad76de5872b085136e36b0d645d7531bb3b90737f3447bf5571cf4420e5b9743ce88061!]"
+    idtl: "ENCRYPTED[!d0a22747709d8cc7482c5f0e1c926b7e3dddfc3e126a08649f543c0a47fba70b243a1b766cd01f4f1765978b8cf53642!]"
+    lunch : lunch bootleg_juice-userdebug
+    make: make bacon
 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -19,12 +19,12 @@ task:
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.config/rclone/rclone.conf
        - DEBIAN_FRONTEND=noninteractive
-       - git config --global user.name "I-n-o-k"
-       - git config --global user.email "inok.dr189@gmail.com"
+       - git config --global user.name "darknius20"
+       - git config --global user.email "darknius20@gmail.com"
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
        - mkdir -p /tmp/ccache
-       - rclone copy inok:nusantara/ccache.tar.gz /tmp -P
+       - rclone copy darknius20:bootleg/ccache.tar.gz /tmp -P
        - cd /tmp
        - time tar xf ccache.tar.gz
        - cd /tmp
@@ -33,6 +33,7 @@ task:
       - df -h
       - lsblk
       - ls -l -a -h
+      - ./s.sh
   
   Sync_script:
       - echo "============================"
@@ -40,23 +41,13 @@ task:
       - echo "============================"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
       - cd /tmp/rom
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/NusantaraProject-ROM/android_manifest -b 11 -g default,-device,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-device,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       # DT/VT/KT/TC
-      - git clone --depth=1 https://github.com/I-n-o-k/device_xiaomi_juice -b nusantara device/xiaomi/juice
-      - git clone --depth=1 https://gitlab.com/I-n-o-k/vendor-lime --single-branch -b 11 vendor/xiaomi/juice
-      - git clone --depth=1 https://github.com/I-n-o-k/android_kernel_xiaomi_bengal --single-branch -b 11.0 kernel/xiaomi/juice
-      # HALS
-      - rm -rf hardware/qcom-caf/sm8250/audio
-      - rm -rf hardware/qcom-caf/sm8250/display
-      - rm -rf hardware/qcom-caf/sm8250/media
-      - rm -rf external/json-c
-      - rm -rf hardware/xiaomi
-      - git clone --depth=1 https://github.com/LineageOS/android_hardware_xiaomi hardware/xiaomi
-      - git clone --depth=1 https://github.com/I-n-o-k/hardware_qcom-caf_sm8250_audio hardware/qcom-caf/sm8250/audio
-      - git clone --depth=1 https://github.com/I-n-o-k/hardware_qcom-caf_sm8250_display hardware/qcom-caf/sm8250/display
-      - git clone --depth=1 https://github.com/I-n-o-k/hardware_qcom-caf_sm8250_media hardware/qcom-caf/sm8250/media
-      - git clone --depth=1 https://github.com/LineageOS/android_external_json-c -b lineage-18.1 external/json-c
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/device_xiaomi_juice_Q -b bootleg device/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/vendor-xiaomi-juice_Q --single-branch -b 10.staging vendor/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/DarkLegacy_kernel_citrus --single-branch -b protest kernel/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/proton-clang --single-branch -b master prebuilts/clang/host/linux-x86/clang-proton
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
       - echo "============================"
@@ -67,8 +58,8 @@ task:
       - echo "============================"
       - echo "Starting the Build..."
       - echo "============================"
-#      - ./collect.sh
-      - ./final.sh
+      - ./collect.sh
+#      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip) Completed!"
       - echo "============================"
       - echo "Build Completed!"
@@ -78,15 +69,15 @@ task:
       - echo "============================"
       - echo "Uploading the Build...."
       - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip)"
-      - rclone copy /tmp/rom/out/target/product/juice/Nusantara*.zip inok:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip) Uploaded Successfully!"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Download link http://anu.inok189.workers.dev/juice/$(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip)"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/juice/ && ls *.zip)"
+      - rclone copy /tmp/rom/out/target/product/juice/*.zip darknius20:juice -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd /tmp
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz inok:nusantara -P
+      - rclone copy ccache.tar.gz darknius20:bootleg -P
       - echo " "
       - echo "============================"
       - echo "Build Uploaded Successfully!"
