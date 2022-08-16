@@ -42,6 +42,7 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
       - mkdir -p /tmp/rom
       - cd /tmp/rom
+      - rm -rf * .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-device,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       # DT/VT/KT/TC
