@@ -44,8 +44,8 @@ task:
       - cd /tmp/rom
       - rm -rf * .repo
       - rm -rf ~/rom/* .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
+      - sudo repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
+      - sudo repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       # DT/VT/KT/TC
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/device_xiaomi_juice_Q -b bootleg device/xiaomi/juice
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/vendor-xiaomi-juice_Q --single-branch -b 10.staging vendor/xiaomi/juice
