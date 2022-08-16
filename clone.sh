@@ -1,0 +1,9 @@
+export GITHUB_USER=darknius20
+export GITHUB_REPOSITORY1=darknius09/device_xiaomi_juice_Q
+export GITHUB_REPOSITORY2=darknius20/vendor-xiaomi-juice_Q
+export GITHUB_REPOSITORY3=darknius20/DarkLegacy_kernel_citrus
+export GITHUB_REPOSITORY4=darknius20/proton-clang
+git clone --depth=1 https://${GITHUB_USER}:${credentials}@github.com/${GITHUB_REPOSITORY1} -b bootleg device/xiaomi/juice
+git clone --depth=1 https://${GITHUB_USER}:${credentials}@github.com/${GITHUB_REPOSITORY2} --single-branch -b 10.staging vendor/xiaomi/juice
+git clone --depth=1 https://${GITHUB_USER}:${credentials}@github.com/${GITHUB_REPOSITORY3} --single-branch -b protest kernel/xiaomi/juice
+git clone --depth=1 https://${GITHUB_USER}:${credentials}@github.com/${GITHUB_REPOSITORY4} -b master prebuilts/clang/host/linux-x86/clang-proton
