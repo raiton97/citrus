@@ -23,11 +23,11 @@ task:
        - git config --global user.email "darknius20@gmail.com"
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
-       - mkdir -p /tmp/ccache
-       - rclone copy darknius20:bootleg/ccache.tar.gz /tmp -P
-       - cd /tmp
+       - mkdir -p ~/ccache
+       - rclone copy darknius20:bootleg/ccache.tar.gz ~/ -P
+       - cd ~/
        - time tar xf ccache.tar.gz
-       - cd /tmp
+       - cd ~/
   
   Storage-Checker_background_script:
       - df -h
@@ -40,14 +40,9 @@ task:
       - echo "Syncing The Sources..."
       - echo "============================"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
-      - mkdir -p ~/.bin
-      - PATH="${HOME}/.bin:${PATH}"
-      - curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-      - chmod a+rx ~/.bin/repo
-      - mkdir -p /tmp/rom
-      - cd /tmp/rom
+      - mkdir -p ~/rom
+      - cd ~/rom
       - rm -rf * .repo
-      - rm -rf ~/rom/* .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       # DT/VT/KT/TC
@@ -67,7 +62,7 @@ task:
       - echo "============================"
       - ./collect.sh
 #      - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip) Completed!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~//rom/out/target/product/juice/ && ls Nusantara*.zip) Completed!"
       - echo "============================"
       - echo "Build Completed!"
       - echo "============================"
@@ -76,13 +71,13 @@ task:
       - echo "============================"
       - echo "Uploading the Build...."
       - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/juice/ && ls *.zip)"
-      - rclone copy /tmp/rom/out/target/product/juice/*.zip darknius20:juice -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~//rom/out/target/product/juice/ && ls *.zip)"
+      - rclone copy ~/rom/out/target/product/juice/*.zip darknius20:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
-      - cd /tmp
+      - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
       - rclone copy ccache.tar.gz darknius20:bootleg -P
       - echo " "
