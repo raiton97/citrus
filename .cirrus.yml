@@ -1,10 +1,10 @@
 env:
-    credentials: "ENCRYPTED[!efab3ed4529d2ffe013709890c8be3abf5839a337f965dc607d8c43bb57a39e7d52ff756687bc92c198f87199c03abc1!]"
-    rcloneconfig: "ENCRYPTED[!de9a884ad227a93ee08eb71e4492fb073234531abe6999b0e234f22be251fa381b2c090dc28399c8904a38aa4fde9412!]"
-    tokentl: "ENCRYPTED[!794f286e43a45e476ba1bd2c0ad76de5872b085136e36b0d645d7531bb3b90737f3447bf5571cf4420e5b9743ce88061!]"
-    idtl: "ENCRYPTED[!d0a22747709d8cc7482c5f0e1c926b7e3dddfc3e126a08649f543c0a47fba70b243a1b766cd01f4f1765978b8cf53642!]"
-    lunch : lunch bootleg_juice-userdebug
-    make: make bacon
+    rcloneconfig: "ENCRYPTED[!e9a32ed6c6159230f55105fabd2f29bc5114d29bfe08f29f3dd7d950000580ee7c6104a215a883d6a07dd639b7ad191f!]"
+    tokentl: "ENCRYPTED[!238754dcb8487c5946fb2ef33f51ec75c7496ffd5ef1294421dc101cb2650feb0948cc08ae9cb44d661fcc87f161c60c!]"
+    idtl: "ENCRYPTED[!d14c07260b8e58db209fb08351b0daab88dab14be716db6efb2ee85131d8d74ba5e29da3f49c0b57e121bcd7c86c1090!]"
+    lunch : lunch aicp_juice-userdebug
+    make: mka bacon
+
 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -15,16 +15,11 @@ task:
       memory: 32G
         
   Build-Env-Setup_background_script:
-       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Setup Build"
+       - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
-       - echo "$rcloneconfig" > ~/.config/rclone/rclone.conf
-       - DEBIAN_FRONTEND=noninteractive
-       - git config --global user.name "darknius20"
-       - git config --global user.email "darknius20@gmail.com"
-       - echo "$credentials" > ~/.git-credentials
-       - git config --global credential.helper store --file=~/.git-credentials
+       - echo "$rcloneconfig" > ~/.rclone.conf
        - mkdir -p ~/ccache
-       - rclone copy darknius20:bootleg/ccache.tar.gz ~/ -P
+       - rclone copy darx:aicp12/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -36,47 +31,32 @@ task:
       - ./s.sh
   
   Sync_script:
-      - echo "============================"
-      - echo "Syncing The Sources..."
-      - echo "============================"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/BootleggersROM/manifest.git -b queso -g default,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/AICP/platform_manifest.git -b s12.1 -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
+      # DT/VT/KT/TC
+      - git clone --depth=1 https://github.com/darknius20/android_device_xiaomi_juice -b aicp12.1 device/xiaomi/juice
+      - git clone --depth=1 https://github.com/darknius20/android_vendor_xiaomi_juice --single-branch -b 11 vendor/xiaomi/juice
+      - git clone --depth=1 https://github.com/darknius20/kernel_xiaomi_chime --single-branch -b twelve kernel/xiaomi/juice
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
-      - echo "============================"
-      - echo "Sync Completed!"
-      - echo "============================"
-
   Build_script:
-      - echo "============================"
-      - echo "Starting the Build..."
-      - echo "============================"
-      - ./clone.sh
+      - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started!"
       - ./collect.sh
 #      - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~//rom/out/target/product/juice/ && ls Nusantara*.zip) Completed!"
-      - echo "============================"
-      - echo "Build Completed!"
-      - echo "============================"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - echo "============================"
-      - echo "Uploading the Build...."
-      - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~//rom/out/target/product/juice/ && ls *.zip)"
-      - rclone copy ~/rom/out/target/product/juice/*.zip darknius20:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
+#      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
+#      - rclone copy ~/rom/out/target/product/juice/aicp*.zip darx:juice -P
+#      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darknius20:bootleg -P
-      - echo " "
-      - echo "============================"
-      - echo "Build Uploaded Successfully!"
-      - echo "============================"
+      - rclone copy ccache.tar.gz darx:aicp12 -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!" 
