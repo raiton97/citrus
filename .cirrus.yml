@@ -41,7 +41,7 @@ task:
       # DT/VT/KT/TC
       - git clone --depth=1 https://github.com/darknius20/device_xiaomi_juice -b aicp12.1 device/xiaomi/juice
       - git clone --depth=1 https://github.com/darknius20/android_vendor_xiaomi_juice --single-branch -b 11.0 vendor/xiaomi/juice
-      - git clone --depth=1 https://github.com/darknius20/kernel_xiaomi_chime --single-branch -b twelve kernel/xiaomi/juice
+      - git clone --depth=1 https://github.com/darknius20/kernel_poco_citrus --single-branch -b main kernel/xiaomi/juice
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
