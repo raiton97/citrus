@@ -2,7 +2,7 @@ env:
     rcloneconfig: "ENCRYPTED[!e9a32ed6c6159230f55105fabd2f29bc5114d29bfe08f29f3dd7d950000580ee7c6104a215a883d6a07dd639b7ad191f!]"
     tokentl: "ENCRYPTED[!794f286e43a45e476ba1bd2c0ad76de5872b085136e36b0d645d7531bb3b90737f3447bf5571cf4420e5b9743ce88061!]"
     idtl: "ENCRYPTED[!d0a22747709d8cc7482c5f0e1c926b7e3dddfc3e126a08649f543c0a47fba70b243a1b766cd01f4f1765978b8cf53642!]"
-    lunch : lunch aicp_juice-userdebug
+    lunch : lunch aicp_chime-userdebug
     make: mka bacon
 
 
@@ -45,12 +45,12 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started!"
 #      - ./collect.sh
       - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/chime/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - rclone copy ~/rom/out/target/product/juice/aicp_juice_s-17.1-UNOFFICIAL*.zip darx:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
+      - rclone copy ~/rom/out/target/product/chime/aicp_chime_s-17.1-UNOFFICIAL*.zip darx:chime -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/chime/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
