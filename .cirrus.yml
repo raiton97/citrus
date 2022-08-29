@@ -2,7 +2,7 @@ env:
     rcloneconfig: "ENCRYPTED[!e9a32ed6c6159230f55105fabd2f29bc5114d29bfe08f29f3dd7d950000580ee7c6104a215a883d6a07dd639b7ad191f!]"
     tokentl: "ENCRYPTED[!794f286e43a45e476ba1bd2c0ad76de5872b085136e36b0d645d7531bb3b90737f3447bf5571cf4420e5b9743ce88061!]"
     idtl: "ENCRYPTED[!d0a22747709d8cc7482c5f0e1c926b7e3dddfc3e126a08649f543c0a47fba70b243a1b766cd01f4f1765978b8cf53642!]"
-    lunch : lunch aicp_chime-userdebug
+    lunch : lunch lineage_juice-userdebug
     make: mka bacon
 
 
@@ -19,7 +19,7 @@ task:
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
        - mkdir -p ~/ccache
-       - rclone copy darx:aicp12/ccache.tar.gz ~/ -P
+       - rclone copy darx:rice12/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -35,25 +35,25 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/AICP/platform_manifest.git -b s12.1 -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/darknius20/local_manifest --depth 1 -b aicp12 .repo/local_manifests
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/RiceDroid/android -b twelve -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/darknius20/local_manifest --depth 1 -b rice12 .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started!"
-#      - ./collect.sh
-      - ./final.sh
+      - ./collect.sh
+#      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/chime/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - rclone copy ~/rom/out/target/product/chime/aicp_chime_s-17.1-UNOFFICIAL*.zip darx:chime -P
+#      - rclone copy ~/rom/out/target/product/juice/riceDroid*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/chime/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darx:aicp12 -P
+      - rclone copy ccache.tar.gz darx:rice12 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!
