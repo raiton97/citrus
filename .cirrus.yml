@@ -4,8 +4,7 @@ env:
     idtl: "ENCRYPTED[!d0a22747709d8cc7482c5f0e1c926b7e3dddfc3e126a08649f543c0a47fba70b243a1b766cd01f4f1765978b8cf53642!]"
     lunch : lunch lineage_juice-userdebug
     make: mka bacon
-
-
+ 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 480m  
