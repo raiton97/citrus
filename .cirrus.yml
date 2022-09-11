@@ -36,7 +36,7 @@ task:
       - rm -rf * .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/RiceDroid/android -b twelve -g default,-mips,-darwin,-notdefault
       - git clone https://github.com/darknius20/local_manifest --depth 1 -b rice .repo/local_manifests
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
+      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
