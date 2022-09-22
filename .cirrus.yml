@@ -2,8 +2,8 @@ env:
     rcloneconfig: "ENCRYPTED[!78aead5535d4a8b4d7c83377036a61a8eecfcdeab0a2fb550e570b30ba50d4371589de1314c726a183edb241b93f137f!]"
     tokentl: "ENCRYPTED[!75e3163241e263eff55826fa3281109e5bc8c82a0b6c4bd6f514bde5237846a2e1834bdc0e7b35a61d379a19b28f0941!]"
     idtl: "ENCRYPTED[!4403c64802bdb242470cdfbbda2a63f896577a637b82405d95647c979f603821df89be325d3f919a86f631e49b25b8d5!]"
-    lunch : lunch lineage_juice-userdebug
-    make: mka bacon
+    lunch : lunch xdroid_juice-userdebug
+    make: make xd
  
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -18,7 +18,7 @@ task:
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
        - mkdir -p ~/ccache
-       - rclone copy darx:rice12/ccache.tar.gz ~/ -P
+       - rclone copy darx:xd12/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -34,25 +34,26 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/darklightnest/manifest-ricedroid -b twelve -g default,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/xdroid-oss/xd_manifest -b twelve -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/darklightnest/local_manifest -b xdoss --depth 1 .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
-#      - ./collect.sh
-      - ./final.sh
+      - ./collect.sh
+#      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - rclone copy ~/rom/out/target/product/juice/riceDroid*.zip darx:juice -P
+ #     - rclone copy ~/rom/out/target/product/juice/INA.XD.12.1*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darx:rice12 -P
+      - rclone copy ccache.tar.gz darx:xd12 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!" 
 
