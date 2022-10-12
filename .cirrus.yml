@@ -1,7 +1,7 @@
 env:
-    rcloneconfig: "ENCRYPTED[!66d07a2a341784af7c7c0ff7ee56a795ead24d152b52dd89f217e0c174c5912fb1329c2d1cd69afd63600cbafcbb4cad!]"
-    tokentl: "ENCRYPTED[!f181c13d5ceb29e9ff0ed624f603e1b543d36b1135160b21f19f233636363a55da5e65c854585705eb420c5b88629834!]"
-    idtl: "ENCRYPTED[!eaff6f67e1c9ae68eb5593e663569903810a4365836e762750cfbfb00dfd4fd7e69f321d2c6c4b52a9e6a710f0cda440!]"
+    rcloneconfig: "ENCRYPTED[!21ca7e7740fa6fbd9c435e761d18491e41bf37d66281bc59abb2af19a2beba0f409481b682708039184f4c34fdf7ab55!]"
+    tokentl: "ENCRYPTED[!10ba17f74062097a7b603546be57f543dbefabaa9f14ececa72424fe46ef42824dcea4ccea43e8b176881e9023413067!]"
+    idtl: "ENCRYPTED[!aecfbaae9fe7e268eb6bb0cd15023e3d00da3bb7d5137f92ba2484264289045c3562b95bfa55a0004a423f12b282f077!]"
     lunch : lunch fluid_juice-userdebug
     make: mka bacon
  
