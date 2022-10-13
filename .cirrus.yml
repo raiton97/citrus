@@ -2,7 +2,7 @@ env:
     rcloneconfig: "ENCRYPTED[!21ca7e7740fa6fbd9c435e761d18491e41bf37d66281bc59abb2af19a2beba0f409481b682708039184f4c34fdf7ab55!]"
     tokentl: "ENCRYPTED[!10ba17f74062097a7b603546be57f543dbefabaa9f14ececa72424fe46ef42824dcea4ccea43e8b176881e9023413067!]"
     idtl: "ENCRYPTED[!aecfbaae9fe7e268eb6bb0cd15023e3d00da3bb7d5137f92ba2484264289045c3562b95bfa55a0004a423f12b282f077!]"
-    lunch : lunch fluid_juice-userdebug
+    lunch : lunch cherish_juice-userdebug
     make: mka bacon
  
 task:
@@ -19,7 +19,7 @@ task:
        - echo "$rcloneconfig" > ~/.rclone.conf
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy darx:fluid11/ccache.tar.gz ~/ -P
+       - rclone copy darx:cherish11/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -36,26 +36,26 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b fluid-11 -g default,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b cherish-11 -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
-#      - ./collect.sh
-      - ./final.sh
+      - ./collect.sh
+#      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Fluid-*.zip
-      - rclone copy ~/rom/out/target/product/juice/Fluid-*.zip darx:juice -P
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Cherish-OS*.zip
+#      - rclone copy ~/rom/out/target/product/juice/Cherish-OS*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-#      - ./ziping.sh
+      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-#      - rclone copy ccache.tar.gz darx:fluid11 -P
+      - rclone copy ccache.tar.gz darx:cherish11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
 
