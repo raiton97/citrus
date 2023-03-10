@@ -4,7 +4,7 @@ env:
     rclonepcloud: "ENCRYPTED[!d00c79a6d71db63d5a6da3f85291e783b384f4f9ead7b003a29d2c0abeff27c0a27164730561ac2158de0df72e5cecc8!]"
     tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
     idtl: "ENCRYPTED[!d387faacf1a99eb9e5ea8b63c3d1c949a24a852d61b38ba5dba62db7e7b13248e7f56fdd44e6ec3d60865789afc75439!]"
-    lunch : lunch havoc_juice-userdebug
+    lunch : lunch spark_citrus-userdebug
     make: mka bacon
  
 task:
@@ -21,7 +21,7 @@ task:
        - echo "$rclonepcloud" > ~/.rclone.conf
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy darkn:havoc11/ccache.tar.gz ~/ -P
+       - rclone copy darkn:spark13/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -38,8 +38,16 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b havoc-11 -g default,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/spark-manifest -b pyro -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      # Clone DT
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/device_xiaomi_chime13 -b spark device/xiaomi/chime
+      # Clone kernel
+      - git clone --depth=1 https://github.com/hac4us06/kernel_xiaomi_chime -b pyro kernel/xiaomi/chime
+      # Clone vendor
+      - git clone --depth=1 https://gitlab.com/chimeoss/vendor_xiaomi_citrus -b lineage-20 vendor/xiaomi/citrus
+      - git clone --depth=1 https://gitlab.com/chimeoss/vendor_xiaomi_lime -b lineage-20 vendor/xiaomi/lime
+      - git clone --depth=1 https://gitlab.com/chimeoss/vendor_xiaomi_chime -b lineage-20 vendor/xiaomi/chime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
@@ -47,17 +55,17 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
       - ./collect.sh
 #      - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - curl -T '~/rom/out/target/product/juice/Havoc-OS*.zip' temp.sh
-#      - rclone copy ~/rom/out/target/product/juice/Havoc-OS*.zip darkn:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/citrus/Spark*.zip
+#      - rclone copy ~/rom/out/target/product/citrus/Spark*.zip darkn:citrus -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darkn:havoc11 -P
+      - rclone copy ccache.tar.gz darkn:spark13 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
 
