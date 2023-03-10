@@ -41,7 +41,7 @@ task:
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/spark-manifest -b pyro -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       # Clone DT
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/device_xiaomi_chime13 -b spark device/xiaomi/chime
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/device_xiaomi_chime13 -b spk device/xiaomi/chime
       # Clone kernel
       - git clone --depth=1 https://github.com/hac4us06/kernel_xiaomi_chime -b pyro kernel/xiaomi/chime
       # Clone vendor
