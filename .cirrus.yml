@@ -5,7 +5,7 @@ env:
     rclonefm: "ENCRYPTED[!db9a8f7f83b9da4d15c4b4c0443177cb0ec7436f969a52d2125c9a5680cf8b81833a24761c5902110fb1ed4acb388612!]"
     tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
     idtl: "ENCRYPTED[!d387faacf1a99eb9e5ea8b63c3d1c949a24a852d61b38ba5dba62db7e7b13248e7f56fdd44e6ec3d60865789afc75439!]"
-    lunch : lunch cherish_citrus-userdebug
+    lunch : lunch lineage_citrus-userdebug
     make: mka bacon
  
 task:
@@ -22,7 +22,7 @@ task:
        - echo "$rclonefm" > ~/.rclone.conf
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy fm293:cherish13/ccache.tar.gz ~/ -P
+       - rclone copy fm293:rising13/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -39,8 +39,8 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/CherishOS/android_manifest -b tiramisu -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/lightnest57/local_manifest --depth 1 -b cherish13 .repo/local_manifests
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/RisingTechOSS/android -b thirteen -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/lightnest57/local_manifest --depth 1 -b rising .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -53,13 +53,13 @@ task:
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-#      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/citrus/Cherish-OS*.zip
-#      - rclone copy ~/rom/out/target/product/citrus/Cherish-OS*.zip fm293:citrus -P
+#      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/citrus/risingos-v*.zip
+#      - rclone copy ~/rom/out/target/product/citrus/risingos-v*.zip fm293:citrus -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz fm293:cherish13 -P
+      - rclone copy ccache.tar.gz fm293:rising13 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
 
