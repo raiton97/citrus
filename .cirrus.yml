@@ -1,10 +1,8 @@
 env:
-    credentials: "ENCRYPTED[!f82db958bb2f6c4f351965e3b2c480db67877f30f96047f313df7324e86ace9a6d3a8e6b348b33fb2c15ddaf8ef90e75!]"
-    rcloneconfig: "ENCRYPTED[!6cf62ed6bddd2499fb7ab4b1d4ab49b1f25a64f67989ae709bbcb713ef4b36e1285bbf5f7dec7a3f0229f6cc6ba64ec7!]"
-    rclonepcloud: "ENCRYPTED[!d00c79a6d71db63d5a6da3f85291e783b384f4f9ead7b003a29d2c0abeff27c0a27164730561ac2158de0df72e5cecc8!]"
-    rclonefm: "ENCRYPTED[!db9a8f7f83b9da4d15c4b4c0443177cb0ec7436f969a52d2125c9a5680cf8b81833a24761c5902110fb1ed4acb388612!]"
-    tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
-    idtl: "ENCRYPTED[!d387faacf1a99eb9e5ea8b63c3d1c949a24a852d61b38ba5dba62db7e7b13248e7f56fdd44e6ec3d60865789afc75439!]"
+    credentials: "ENCRYPTED[!9937302af91041bb30ad1f179e0294644ea9f9f71295d15bf4e0d6e5e17fe19323007db0a422963a3aacf6ee38450f9a!]"
+    rclonefm: "ENCRYPTED[!1493d8e2d40cbfee1f1c3be79664ea6c74bfc344149154fd24b73aca1665f710feaa4cb3a8213ff0c938fb4b2511222a!]"
+    tokentl: "ENCRYPTED[!5f686008b25a366355a3e3794f0992b707e99edbe39457189a54fdd482c68fe13d774cc4005a7fb57620c9938876e1c0!]"
+    idtl: "ENCRYPTED[!9ee8bbf8a03e3a7a015889ba15fdeb9056037183f49d07ac2bca6dd23e507c04c9fb23cbdd11aba6089be275602637a8!]"
     lunch : lunch lineage_citrus-userdebug
     make: mka bacon
  
