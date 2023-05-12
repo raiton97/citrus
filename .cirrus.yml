@@ -18,6 +18,7 @@ task:
         
   Build-Env-Setup_background_script:
        - export DEBIAN_FRONTEND=noninteractive
+       - export SELINUX_IGNORE_NEVERALLOWS=true
        - mkdir -p ~/.config/rclone
        - echo "$rclonefm" > ~/.rclone.conf
        - rm -rf ~/ccache
