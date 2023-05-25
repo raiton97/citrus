@@ -37,7 +37,7 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-       - mkdir -p ~/.anu
+      - mkdir -p ~/.anu
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
