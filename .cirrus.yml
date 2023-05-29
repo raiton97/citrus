@@ -4,8 +4,8 @@ env:
     rcloneconfig: "ENCRYPTED[!b791de2c92a6aee8dbf2b66d9a1c3ed0542a9eaae04305b8daa7ee6f9b90e0ecf8e7c3d2c5d30074f0d7d6dd87743940!]"
     tokentl: "ENCRYPTED[!5f686008b25a366355a3e3794f0992b707e99edbe39457189a54fdd482c68fe13d774cc4005a7fb57620c9938876e1c0!]"
     idtl: "ENCRYPTED[!9ee8bbf8a03e3a7a015889ba15fdeb9056037183f49d07ac2bca6dd23e507c04c9fb23cbdd11aba6089be275602637a8!]"
-    lunch : lunch aosp_juice-userdebug
-    make: mka bacon
+    lunch : lunch nad_juice-userdebug
+    make: mka nad
  
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -18,10 +18,10 @@ task:
   Build-Env-Setup_background_script:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
-       - echo "$rcloneconfig" > ~/.rclone.conf
+       - echo "$rclonefm" > ~/.rclone.conf
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy darx:pb11/ccache.tar.gz ~/ -P
+       - rclone copy fm293:nad11/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -42,7 +42,8 @@ task:
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
-      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b pb-11 -g default,-mips,-darwin,-notdefault
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b nad11 -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b 11 .repo/local_manifests
       - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -54,7 +55,6 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
 
   Upload_script:
-      - echo "$rclonefm" > ~/.rclone.conf
       - ./upload.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
 #      - ./ziping.sh
