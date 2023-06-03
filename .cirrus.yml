@@ -53,7 +53,7 @@ task:
       - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - git clone $dt
       - git clone $vt
-      - git clone $kt
+      - git clone https://github.com/darknius20/guuji_kernel_juice -b main.stbl --depth=1 kernel/xiaomi/chime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
