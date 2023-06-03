@@ -5,7 +5,7 @@ cd ~/rom
 export CCACHE_DIR=~/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
-ccache -M 20G -F 0
+ccache -M 50G -F 0
 ccache -o compression=true
 ccache -z
 export BUILD_USERNAME="darknius"
