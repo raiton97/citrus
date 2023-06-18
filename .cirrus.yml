@@ -1,5 +1,5 @@
 env:
-    credentials: "ENCRYPTED[!9937302af91041bb30ad1f179e0294644ea9f9f71295d15bf4e0d6e5e17fe19323007db0a422963a3aacf6ee38450f9a!]"
+    credentials: "ENCRYPTED[!c66d85c64e9f091fc010ec39696785536077b2f9a5185561dda60472aced6eb1e207ffb1f9d0e72d140b9ab9f863486e!]"
     rclonefm: "ENCRYPTED[!1493d8e2d40cbfee1f1c3be79664ea6c74bfc344149154fd24b73aca1665f710feaa4cb3a8213ff0c938fb4b2511222a!]"
     rcloneconfig: "ENCRYPTED[!3c9ae9583e03479e62e0e517636b06b1315f5d4a08997f0c8d83c4893db04efa9ebbeb6e2c7801019b0f2b3113c67fa4!]"
     tokentl: "ENCRYPTED[!5f686008b25a366355a3e3794f0992b707e99edbe39457189a54fdd482c68fe13d774cc4005a7fb57620c9938876e1c0!]"
@@ -19,6 +19,10 @@ task:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
+       - git config --global user.name "darknius20"
+       - git config --global user.email "darknius21@gmail.com"
+       - echo "$credentials" > ~/.git-credentials
+       - git config --global credential.helper store --file=~/.git-credentials
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
        - rclone copy 298:xd11/ccache.tar.gz ~/ -P
