@@ -4,7 +4,7 @@ env:
     rcloneconfig: "ENCRYPTED[!3c9ae9583e03479e62e0e517636b06b1315f5d4a08997f0c8d83c4893db04efa9ebbeb6e2c7801019b0f2b3113c67fa4!]"
     tokentl: "ENCRYPTED[!5f686008b25a366355a3e3794f0992b707e99edbe39457189a54fdd482c68fe13d774cc4005a7fb57620c9938876e1c0!]"
     idtl: "ENCRYPTED[!9ee8bbf8a03e3a7a015889ba15fdeb9056037183f49d07ac2bca6dd23e507c04c9fb23cbdd11aba6089be275602637a8!]"
-    lunch : lunch lineage_citrus-user
+    lunch : lunch lineage_citrus-userdebug
     make: mka bacon
  
 task:
