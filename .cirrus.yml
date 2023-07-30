@@ -46,9 +46,11 @@ task:
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
+      - sudo apt install git-lfs
+      - git lfs install
       - repoo init -q --no-repo-verify --depth=1 -u https://github.com/RisingTechOSS/android -b thirteen -g default,-mips,-darwin,-notdefault
       - git clone https://github.com/Night-Raids-Reborn/local_manifest -b 13 --depth 1 .repo/local_manifests
-      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 && repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - repoo sync -c --no-clone-bundle --no-tags --git-lfs --optimized-fetch --prune --force-sync -j8 && repoo sync -c --no-clone-bundle --no-tags --git-lfs --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
