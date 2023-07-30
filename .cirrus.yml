@@ -11,7 +11,7 @@ task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 480m  
   container:
-      image: ohmyvenyx/idn-labs:latest
+      image: inok2341/anu:latest
       cpu: 8
       memory: 32G
         
@@ -46,7 +46,8 @@ task:
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
-      - sudo apt install git-lfs
+      - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+      - sudo apt-get install git-lfs
       - git lfs install
       - repoo init -q --no-repo-verify --depth=1 -u https://github.com/RisingTechOSS/android -b thirteen -g default,-mips,-darwin,-notdefault
       - git clone https://github.com/Night-Raids-Reborn/local_manifest -b 13 --depth 1 .repo/local_manifests
