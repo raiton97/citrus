@@ -4,8 +4,8 @@ env:
     rcloneconfig: "ENCRYPTED[!3c9ae9583e03479e62e0e517636b06b1315f5d4a08997f0c8d83c4893db04efa9ebbeb6e2c7801019b0f2b3113c67fa4!]"
     tokentl: "ENCRYPTED[!5f686008b25a366355a3e3794f0992b707e99edbe39457189a54fdd482c68fe13d774cc4005a7fb57620c9938876e1c0!]"
     idtl: "ENCRYPTED[!9ee8bbf8a03e3a7a015889ba15fdeb9056037183f49d07ac2bca6dd23e507c04c9fb23cbdd11aba6089be275602637a8!]"
-    lunch : lunch lineage_citrus-userdebug
-    make: mka bacon
+    lunch : lunch rr_citrus-userdebug
+    make: m bacon
  
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -25,7 +25,7 @@ task:
        - git config --global credential.helper store --file=~/.git-credentials
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy 298:rice/ccache.tar.gz ~/ -P
+       - rclone copy 298:RRQN/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -37,8 +37,7 @@ task:
       - ./s.sh
   
   Sync_script:
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
-      - rm -rf ~/rom
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source" 
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
@@ -49,24 +48,25 @@ task:
       - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
       - sudo apt-get install git-lfs
       - git lfs install
-      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/RisingTechOSS/android -b thirteen -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/Night-Raids-Reborn/local_manifest -b 13 --depth 1 .repo/local_manifests
-      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 && repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b rr -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b rr-citrus .repo/local_manifests
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
-#      - ./collect.sh
-      - ./final.sh
+      - ./collect.sh
+#      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
 
   Upload_script:
-      - ./upload.sh
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
+    #  - rclone copy ~/rom/out/target/product/citrus/RR-*.zip 298:citrus -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-#      - ./ziping.sh
+      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-#      - rclone copy ccache.tar.gz 298:rice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!" 
-      
+      - rclone copy ccache.tar.gz 298:RRQN -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
