@@ -41,8 +41,6 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - sudo apt update
-      - sudo apt install repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b rr -g default,-mips,-darwin,-notdefault
       - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b rr-citrus .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
