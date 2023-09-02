@@ -11,7 +11,7 @@ task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 480m  
   container:
-      image: inok2341/anu:latest
+      image: fr05t77/ubuntu:jammy
       cpu: 8
       memory: 32G
         
